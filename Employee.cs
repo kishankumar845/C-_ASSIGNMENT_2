@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace EMSForLitwareOrganization
 {
-    internal class Employee
+    internal class Employee 
     {
         private int EmpNo;       //non-static - global vars
         private String EmpName;
-        private double Salary;
+        public double Salary;    //private members cannot be accesesd by other class
         private double HRA;
         private double TA;
         private double DA;
         private double PF;
         private double TDS;
         private double NetSalary;
-        private double GrossSalary;
+        public double GrossSalary;
 
         /*public Employee(int EmpNo, String EmpName, double Salary)
         {
@@ -35,6 +35,8 @@ namespace EMSForLitwareOrganization
         public int EmployeeNumber { get; set; }
         public String EmployeeName { get; set; }
         public double EmployeeSalary { get; set; }
+
+       
         public void Method1(int EmpNo)
         {
             Console.WriteLine("Enter your Employee Number");
@@ -66,7 +68,7 @@ namespace EMSForLitwareOrganization
         {
             Console.WriteLine("Enter your Employee Salary");
             Console.ReadLine();
-            MethodforHRA();              //calling non-static methods inside non- static method--> just by calling its member name
+            MethodforHRA(5000);              //calling non-static methods inside non- static method--> just by calling its member name
             MethodForGrossSalary();      //calling non-static methods inside non- static method--> just by calling its member name
             CalculateSalary();           //calling non-static methods inside non- static method--> just by calling its member name
 
@@ -87,9 +89,10 @@ namespace EMSForLitwareOrganization
                 Console.WriteLine("Invalid Salary Numbers, Please Enter Valid Salary details");
             }*/
         }
-        public void MethodforHRA()
+        public void MethodforHRA(double Salary)
         {
-            
+            //Manager.manager = new Manager();
+            this.Salary = Salary;
             if(Salary < 5000)
             {
                 HRA = (10 / Salary) * 100;
@@ -98,6 +101,7 @@ namespace EMSForLitwareOrganization
                 Console.WriteLine(TA);
                 DA = (15/Salary) * 100;
                 Console.WriteLine(DA);
+
             }
             if(Salary < 10000)
             {
@@ -141,13 +145,13 @@ namespace EMSForLitwareOrganization
             }
         }
 
-        public void MethodForGrossSalary()
+        public virtual void MethodForGrossSalary()
         {
             Console.WriteLine("Your Gross Salary will be replicated like this");
-            GrossSalary = Salary + HRA + TA + DA;
+            GrossSalary = Salary + HRA + TA + DA ;
             Console.WriteLine(GrossSalary);
         }
-        public void CalculateSalary()
+        public virtual void CalculateSalary()
         {
             PF = (10 / GrossSalary) * 100;
             Console.WriteLine(PF);
